@@ -4,7 +4,7 @@
         <script src="https://www.paypal.com/sdk/js?client-id=AQ16LXhtUOOnYWSGrpjIR3dbLjDJvSRWYtORhw5pjQDnHzbwBwKL1g-5fn0MPzfE1D479aua0RDxBy4S&currency=MXN"></script>
     </head>
     <body>
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;" id="paypal-button-container"/>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="paypal-button-container"/>
         <script>
             function renderPaypalButton() {
                 const CREATE_ORDER_URL = 'https://n55ath873a.execute-api.us-east-1.amazonaws.com/development/Miniso-PayPal-Dev';
@@ -18,11 +18,14 @@
                         color: 'gold'
                     },
                     createOrder: function (data, actions) {
+                        const params = new URLSearchParams(window.location.search);
+                        const order_form = params.get('order_form'); // Gets the value of 'order_form'
+                        const magnes = params.get('magnes'); //
                         return fetch(CREATE_ORDER_URL, {
                             method: "POST",
                             body: JSON.stringify({
-                                order_form: '{{order_form}}',
-                                magnes: '{{magnes}}',
+                                order_form: order_form,
+                                magnes: magnes,
                                 intent: 'CREATE'
                             }),
                             headers: {
