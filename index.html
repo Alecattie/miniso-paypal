@@ -400,7 +400,15 @@
                     .then(function (details) {
                       console.log('details', details);
                       console.log('details.order_id', details.order_id);
-                      window.location.href = `miniso://ordercallback?order=${details.order_id}`;
+                      try {
+                        window.location.href = `miniso://ordercallback?order=${details.order_id}`;
+
+                        setTimeout(() => {
+                          console.log('Redirect might have failed. Location is still:', window.location.href);
+                        }, 1000);
+                      } catch (e) {
+                        console.error('Redirect error:', e);
+                      }
                     })
                     .catch(function (error) {
                       showError(error.message);
