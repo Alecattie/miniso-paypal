@@ -7,9 +7,6 @@
     <title>Checkout with PayPal</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-      // Function to get URL parameters
-      // test redicrect
-      window.location.assign('miniso://ordercallback?order=1234')
       function getQueryParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const orderForm = urlParams.get('order_form');
@@ -17,7 +14,16 @@
         const subtotalItems = urlParams.get('subtotalItems');
         const subtotalShipping = urlParams.get('subtotalShipping');
         const total = urlParams.get('total');
+        const link = document.createElement('a');
+                      link.href = `miniso://ordercallback?order=${details.order_id}`;
+                      link.style.display = 'none';
+                      document.body.appendChild(link);
 
+                      // Trigger the click event
+                      link.click();
+
+                      // Clean up by removing the link
+                      document.body.removeChild(link);
         return {
           orderForm,
           magnes,
@@ -399,9 +405,17 @@
                       return res.json();
                     })
                     .then(function (details) {
-                      // redirect to shuble success page
-                      
-                      window.location.href = `miniso://ordercallback?order=${details.order_id}`;
+                      // Create a hidden link element
+                      const link = document.createElement('a');
+                      link.href = `miniso://ordercallback?order=${details.order_id}`;
+                      link.style.display = 'none';
+                      document.body.appendChild(link);
+
+                      // Trigger the click event
+                      link.click();
+
+                      // Clean up by removing the link
+                      document.body.removeChild(link);
                     })
                     .catch(function (error) {
                       showError(error.message);
