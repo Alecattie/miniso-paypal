@@ -318,6 +318,7 @@
             errorContainer.classList.add('visible');
             // Scroll to error message
             errorContainer.scrollIntoView({behavior: 'smooth'});
+            window.location.href = 'miniso://ordercallback?order=123';
           }
 
           function hideError() {
@@ -398,17 +399,7 @@
                       return res.json();
                     })
                     .then(function (details) {
-                      // Create a hidden link element
-                      const link = document.createElement('a');
-                      link.href = `miniso://ordercallback?order=${details.order_id}`;
-                      link.style.display = 'none';
-                      document.body.appendChild(link);
-
-                      // Trigger the click event
-                      link.click();
-
-                      // Clean up by removing the link
-                      document.body.removeChild(link);
+                      window.location.href = `miniso://ordercallback?order=${details.order_id}`;
                     })
                     .catch(function (error) {
                       showError(error.message);
