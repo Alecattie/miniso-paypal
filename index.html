@@ -404,8 +404,15 @@
                         window.location.href = `miniso://ordercallback?order=${details.order_id}`;
 
                         setTimeout(() => {
-                          console.log('Redirect might have failed. Location is still:', window.location.href);
-                        }, 1000);
+                          window.location.assign(
+                            `miniso://ordercallback?order=${details.order_id}`,
+                          );
+                        }, 100);
+
+                        // Method 2: Alternative - create and click a hidden link
+                        const link = document.createElement('a');
+                        link.href = `miniso://ordercallback?order=${details.order_id}`;
+                        link.click();
                       } catch (e) {
                         console.error('Redirect error:', e);
                       }
