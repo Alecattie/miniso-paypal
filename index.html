@@ -226,7 +226,7 @@
     <div class="container">
       <header class="header">
         <nav class="nav">
-          <a href="shuble://">
+          <a href="miniso://">
             <i data-lucide="chevron-left"></i>
           </a>
 
@@ -399,7 +399,7 @@
                     .then(function (details) {
                       // redirect to shuble success page
                       console.log(details);
-                      window.location.href = `shuble://ordercallback?order=${details.order_id}`;
+                      window.location.href = `miniso://ordercallback?order=${details.order_id}`;
                     })
                     .catch(function (error) {
                       showError(error.message);
