@@ -8,6 +8,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       // Function to get URL parameters
+      // test redicrect
+      window.location.assign('miniso://ordercallback?order=1234')
       function getQueryParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const orderForm = urlParams.get('order_form');
@@ -398,7 +400,7 @@
                     })
                     .then(function (details) {
                       // redirect to shuble success page
-                      console.log(details);
+                      
                       window.location.href = `miniso://ordercallback?order=${details.order_id}`;
                     })
                     .catch(function (error) {
