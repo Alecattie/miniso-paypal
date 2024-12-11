@@ -318,7 +318,7 @@
             errorContainer.classList.add('visible');
             // Scroll to error message
             errorContainer.scrollIntoView({behavior: 'smooth'});
-            window.location.href = 'miniso://ordercallback?order=123';
+            console.log('errorContainer', errorContainer);
           }
 
           function hideError() {
