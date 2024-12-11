@@ -318,7 +318,6 @@
             errorContainer.classList.add('visible');
             // Scroll to error message
             errorContainer.scrollIntoView({behavior: 'smooth'});
-            console.log('errorContainer', errorContainer);
           }
 
           function hideError() {
@@ -399,6 +398,8 @@
                       return res.json();
                     })
                     .then(function (details) {
+                      console.log('details', details);
+                      console.log('details.order_id', details.order_id);
                       window.location.href = `miniso://ordercallback?order=${details.order_id}`;
                     })
                     .catch(function (error) {
