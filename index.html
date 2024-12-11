@@ -7,6 +7,8 @@
     <title>Checkout with PayPal</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
+      // Function to get URL parameters
+
       function getQueryParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const orderForm = urlParams.get('order_form');
@@ -14,16 +16,7 @@
         const subtotalItems = urlParams.get('subtotalItems');
         const subtotalShipping = urlParams.get('subtotalShipping');
         const total = urlParams.get('total');
-        const link = document.createElement('a');
-                      link.href = `miniso://ordercallback?order=12345`;
-                      link.style.display = 'none';
-                      document.body.appendChild(link);
 
-                      // Trigger the click event
-                      link.click();
-
-                      // Clean up by removing the link
-                      document.body.removeChild(link);
         return {
           orderForm,
           magnes,
