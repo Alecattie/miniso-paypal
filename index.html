@@ -221,6 +221,42 @@
       .error-icon {
         color: #c62828;
       }
+
+      /* Add these styles for the success message */
+      .success-message {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        padding: 16px;
+        border-radius: 8px;
+        margin: 16px 0;
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .success-message.visible {
+        display: flex;
+      }
+
+      .success-icon {
+        color: #2e7d32;
+      }
+
+      .redirect-button {
+        background-color: #2e7d32;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14.5px 16px;
+        font-size: 17px;
+        font-weight: 500;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -246,6 +282,15 @@
             >Ha ocurrido un error al procesar tu pago. Por favor intenta de
             nuevo.</span
           >
+        </div>
+
+        <!-- Add this success message container after the error message container -->
+        <div id="success-message" class="success-message">
+          <i data-lucide="check-circle" class="success-icon"></i>
+          <span>¡Pago completado con éxito!</span>
+          <a href="#" id="redirect-button" class="redirect-button">
+            Regresar a la aplicación
+          </a>
         </div>
 
         <div class="paypal-logo">
@@ -325,6 +370,17 @@
             errorContainer.classList.remove('visible');
           }
 
+          function showSuccess() {
+            const successContainer = document.getElementById('success-message');
+            const paypalButton = document.getElementById(
+              'paypal-button-container',
+            );
+            successContainer.classList.add('visible');
+            paypalButton.style.display = 'none';
+            // Scroll to success message
+            successContainer.scrollIntoView({behavior: 'smooth'});
+          }
+
           function renderPaypalButton() {
             const CREATE_ORDER_URL =
               'https://n55ath873a.execute-api.us-east-1.amazonaws.com/development/Miniso-PayPal-Dev';
@@ -398,15 +454,11 @@
                       return res.json();
                     })
                     .then(function (details) {
-                      console.log('details', details);
-                      console.log('details.order_id', details.order_id);
-                      try {
-                        window.location.replace(
-                          `miniso://ordercallback?order=${details.order_id}`,
-                        );
-                      } catch (e) {
-                        console.error('Redirect error:', e);
-                      }
+                      // Show success message and setup redirect
+                      showSuccess();
+                      const redirectButton =
+                        document.getElementById('redirect-button');
+                      redirectButton.href = `miniso://ordercallback?order=${details.order_id}`;
                     })
                     .catch(function (error) {
                       showError(error.message);
